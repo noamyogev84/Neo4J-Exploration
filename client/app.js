@@ -1,6 +1,6 @@
 export class App {
 
   constructor() {
-    alert("123");
+    this.message = "hello you fucking bastard!"
   }
 }

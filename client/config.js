@@ -1,11 +1,12 @@
 System.config({
-  baseURL: "/",
+  baseURL: ".",
   defaultJSExtensions: true,
   transpiler: "babel",
   babelOptions: {
     "optional": [
       "runtime",
-      "optimisation.modules.system"
+      "optimisation.modules.system",
+      "es7.decorators"
     ]
   },
   paths: {
