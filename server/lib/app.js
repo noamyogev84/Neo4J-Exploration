@@ -7,12 +7,17 @@ var bodyParser = require('body-parser');
 var os = require('os');
 var routes = require('./../routes/index');
 var users = require('./../routes/users');
+var config = require('./../config.json');
 
 var app = express();
 
 // view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'jade');
+console.log("!!!!!!!!!!!!" + path.join('./../', 'views'));
+app.use(express.static(__dirname + './../public'));
+app.set('views', __dirname + './../public/views');
+app.engine('html', require('ejs').renderFile);
+app.set('view engine', 'html');
+
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
@@ -25,21 +30,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', routes);
 app.use('/users', users);
 
-app.get('/user', function(req,res,next){
 
-  console('trilili tralala');
-
-  var err = new Error('Not Found trilili');
-  err.status = 404;
-  next(null);
-});
-
-// catch 404 and forward to error handler
-app.use(function(req, res, next) {
-
-  res.statusCode = 200;
-  next(null);
-});
 
 // error handlers
 
@@ -65,7 +56,23 @@ app.use(function(err, req, res, next) {
   });
 });
 
-require('http').createServer(app).listen(3000);
-console.log('Http server is listening on ' + os.hostname() + ':3000');
+require('http').createServer(app).listen(config.port);
+console.log('Http server is listening on ' + os.hostname() + ':' + config.port);
+
+app.get('/', function(req, res) {
+  res.sendFile(express.static(path.join('./../../client' + '/index.html')));
+});
+
+
+app.get('/user', function(req, res, next){
+
+  console.log('trilili tralala');
+
+
+  var err = new Error('Not Found trilili');
+  err.status = 404;
+
+  next(null);
+});
 
 module.exports = app;
