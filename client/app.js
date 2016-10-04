@@ -1,6 +1,14 @@
+import {inject} from 'aurelia-framework';
+import {TransactionLogic} from './transactionLogic';
+
+@inject(TransactionLogic)
 export class App {
 
-  constructor() {
-    this.message = "hello you fucking bastard!"
+  constructor(transactionLogic) {
+    this.transactions = transactionLogic;
+  }
+
+  testBtnclick() {
+    this.transactions.getAllPlayers();
   }
 }

@@ -1,4 +1,28 @@
 
 <template>
-  ${message}
+  <nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <a href="#" class="navbar-brand">BOO-YA!</a>
+      </div>
+    </div>
+  </nav>
+  <div class="container">
+    <table class="table">
+      <tr>
+        <th>${transactions.getAllPlayers()}</th>
+        <th>Player Name</th>
+        <th>Player Age</th>
+        <th>Player Points</th>
+      </tr>
+      <tr repeat.for="player of players">
+        <td>"asdas"</td>
+        <td>"sds"</td>
+        <td>"asdasd"</td>
+      </tr>
+    </table>
+  </div>
+  <div class="container">
+    <button text="SHOOT!" onclick="testBtnclick"></button>
+  </div>
 </template>

@@ -8,6 +8,7 @@
     "posttest": "npm run lint && nsp check"
   },
   "dependencies": {
+    "body-parser": "^1.15.2",
     "compression": "^1.0.3",
     "cors": "^2.5.2",
     "ejs": "^2.5.2",
@@ -40,6 +41,7 @@
     },
     "dependencies": {
       "aurelia-bootstrapper": "npm:aurelia-bootstrapper@^1.0.0",
+      "aurelia-fetch-client": "npm:aurelia-fetch-client@^1.0.1",
       "aurelia-framework": "npm:aurelia-framework@^1.0.5",
       "bootstrap": "github:twbs/bootstrap@^3.3.7"
     },
