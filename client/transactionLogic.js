@@ -9,24 +9,29 @@ export class TransactionLogic {
     this.http = httpClient;
   }
 
-  executeCommandOnServer(command) {
-    this.http.fetch('http://localhost:3000/commands', {
-      method: 'post',
-      body: json({command: command})
+  executeCommandOnServer(command, params) {
+    var self = this; // closure
+    return new Promise(function(resolve,reject) {
+      self.http.fetch('http://localhost:3000/commands', {
+        method: 'post',
+        body: json({command: command, params: params})
+      })
+        .then(response => response.json())
+        .then(data => resolve(data))
+        .catch(err => reject(err));
     })
-      .then(response => response.json())
-      .then(data => {
-        console.log(data);
-      });
   }
 
-  createPlayer(player) {
-
+   async getAllPlayers() {
+      console.log("getAllPlayers executed");
+      let res = await this.executeCommandOnServer("getAllPlayers");
+      return res;
   }
 
-  getAllPlayers() {
-    console.log("getAllPlayers executed");
-    this.executeCommandOnServer("getAllPlayers");
+  async addNewPlayer(player) {
+    console.log("addNewPlayer executed");
+    let res = await this.executeCommandOnServer("addPlayer",player);
+    return res;
   }
 
 

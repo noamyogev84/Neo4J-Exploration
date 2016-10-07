@@ -10,19 +10,18 @@
   <div class="container">
     <table class="table">
       <tr>
-        <th>${transactions.getAllPlayers()}</th>
         <th>Player Name</th>
         <th>Player Age</th>
         <th>Player Points</th>
       </tr>
       <tr repeat.for="player of players">
-        <td>"asdas"</td>
-        <td>"sds"</td>
-        <td>"asdasd"</td>
+        <td>${player.name}</td>
+        <td>${player.age}</td>
+        <td>${player.points}</td>
       </tr>
     </table>
   </div>
   <div class="container">
-    <button text="SHOOT!" onclick="testBtnclick"></button>
+    <button type="button" click.delegate="addNewPlayer()">Add Player</button>
   </div>
 </template>
