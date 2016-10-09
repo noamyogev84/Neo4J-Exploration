@@ -37,28 +37,17 @@ app.get('/commands',function(res,req){
 
 // POST /api/users gets JSON bodies
 app.post('/commands', jsonParser, function (req, res) {
-  var result = undefined;
   if (!req.body) return res.sendStatus(400);
   var command = req.body.command;
   var params = req.body.params;
   console.log("server ack : " + command + " params : " + JSON.stringify(params));
 
   //call db with command
-  if(command == "getAllPlayers") {
-    dbAdapter.getAllPlayers(function (response) {
-      res.setHeader('Content-Type', 'application/json');
-      res.send(JSON.stringify(response));
-    });
-  }
-  if(command == "addPlayer") {
-    dbAdapter.addPlayer(params,function (response) {
-      res.setHeader('Content-Type', 'application/json');
-      res.send(JSON.stringify(response));
-    });
-  }
-
-})
-
+  dbAdapter.executeDBCommand(command, params, function (response) {
+    res.setHeader('Content-Type', 'application/json');
+    res.send(JSON.stringify(response));
+  })
+});
 // development only
 if ('development' === app.get('env')) {
   app.use(errorhandler());

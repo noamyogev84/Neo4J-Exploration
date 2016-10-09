@@ -5,23 +5,12 @@
       <div class="navbar-header">
         <a href="#" class="navbar-brand">BOO-YA!</a>
       </div>
+      <ul class="nav navbar-nav">
+        <li repeat.for="row of router.navigation">
+          <a href.bind="row.href">${row.title}</a>
+        </li>
+      </ul>
     </div>
   </nav>
-  <div class="container">
-    <table class="table">
-      <tr>
-        <th>Player Name</th>
-        <th>Player Age</th>
-        <th>Player Points</th>
-      </tr>
-      <tr repeat.for="player of players">
-        <td>${player.name}</td>
-        <td>${player.age}</td>
-        <td>${player.points}</td>
-      </tr>
-    </table>
-  </div>
-  <div class="container">
-    <button type="button" click.delegate="addNewPlayer()">Add Player</button>
-  </div>
+    <router-view></router-view>
 </template>

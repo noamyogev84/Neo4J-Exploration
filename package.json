@@ -21,6 +21,7 @@
     "loopback-datasource-juggler": "^2.39.0",
     "morgan": "^1.7.0",
     "requirejs": "^2.3.2",
+    "semantic-ui": "^2.2.4",
     "serve-favicon": "^2.3.0",
     "strong-error-handler": "^1.0.1"
   },

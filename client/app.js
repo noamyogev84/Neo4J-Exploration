@@ -1,19 +1,16 @@
-import {inject} from 'aurelia-framework';
-import {TransactionLogic} from './transactionLogic';
 
-@inject(TransactionLogic)
 export class App {
 
-  constructor(transactionLogic) {
-    this.transactions = transactionLogic;
+  configureRouter(config, router) {
+    this.router = router;
+
+    config.map([
+      { route:["", "players"], moduleId:"components/players/playersGrid",
+      title:"Players", nav:true},
+
+      { route:"edit-player/:id", moduleId:"components/edit-player/editPlayer",
+      title:"Edit Player", nav:false}
+    ]);
   }
 
-  async activate() {
-    this.players = await this.transactions.getAllPlayers();
-  }
-
-  async addNewPlayer() {
-    var player = {name: "Moses",age: 1000,points: 4500};
-    await this.transactions.addNewPlayer(player);
-  }
 }

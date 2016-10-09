@@ -21,4 +21,26 @@ Neo4JAdapter.prototype.addPlayer = function(node,callback) {
   })
 }
 
+Neo4JAdapter.prototype.getPlayer = function(id,callback) {
+    db.readNode(id,function(err, result){
+      if(err) throw err;
+        return callback(result);
+  })
+}
+
+Neo4JAdapter.prototype.executeDBCommand = function(command,params,callback) {
+  switch(command) {
+    case 'getAllPlayers':
+      return this.getAllPlayers(callback);
+    case 'addPlayer':
+      var node = params;
+      return this.addPlayer(node,callback);
+    case 'getPlayer':
+      var id = params;
+      return this.getPlayer(id,callback);
+    default:
+      //do nothing
+  }
+}
+
 module.exports = new Neo4JAdapter();
