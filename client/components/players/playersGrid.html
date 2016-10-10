@@ -1,0 +1,28 @@
+<template>
+  <div class="ui cards">
+    <div repeat.for="player of players" class="card">
+      <div class="content">
+        <img class="right floated mini ui image" src=${generateRandomAvatar()}>
+        <div class="header">
+          ${player.name}
+        </div>
+        <div class="meta">
+          Meta text TBD
+        </div>
+        <div class="description">
+          ${player.name} gained ${player.points} points by the age of ${player.age}
+        </div>
+      </div>
+      <div class="extra content">
+        <div class="ui two buttons">
+          <div class="ui basic green button">Fight</div>
+          <div class="ui basic red button">Remove</div>
+        </div>
+      </div>
+      <div class="ui bottom attached button" click.delegate=$parent.edit(player._id)>
+        <i class="edit icon"></i>
+        Edit Player
+      </div>
+    </div>
+  </div>
+</template>
