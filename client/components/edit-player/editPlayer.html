@@ -1,18 +1,20 @@
 <template>
   <div class="ui centered card">
-    <div class="image">
-      <img src="../../media/large/1.jpg">
-    </div>
+
     <div class="content">
-      <a class="header">${player.name}</a>
-      <form class="ui form" submit.delegate = "savePlayer()">
+      <a class="header">${currentPlayer.name}</a>
+      <form class="ui form" submit.delegate="save()">
         <div class="field">
-          <label>First Name</label>
-          <input type="text" name="first-name" placeholder="First Name">
+          <label>Name</label>
+          <input type="text" name="name" placeholder="Name" value.bind=currentPlayer.name>
         </div>
         <div class="field">
-          <label>Last Name</label>
-          <input type="text" name="last-name" placeholder="Last Name">
+          <label>Age</label>
+          <input type="text" name="age" placeholder="Age" value.bind=currentPlayer.age>
+        </div>
+        <div class="field">
+          <label>Points</label>
+          <input type="text" name="points" placeholder="Points" value.bind=currentPlayer.points>
         </div>
         <div class="field">
           <div class="ui checkbox">

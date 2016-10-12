@@ -1,26 +1,44 @@
-import {inject} from 'aurelia-framework';
+import {inject, BindingEngine} from 'aurelia-framework';
 import {Router} from 'aurelia-router';
-import {TransactionLogic} from '../../modules/transactionLogic';
-import {Player} from '../../models/player';
+import {Players} from '../../models/players';
 
-@inject(TransactionLogic,Router)
+@inject(Players,Router,BindingEngine)
 export class PlayersGrid {
 
-  constructor(transactionLogic,router) {
-    this.transactions = transactionLogic;
+  constructor(playersProvider,router,bindingEngine) {
     this.router = router;
+    this.playersProvider = playersProvider;
+    this._bindingEngine = bindingEngine;
+    this._players = [];
+    this._subscription = this._bindingEngine.collectionObserver(this._players)
+      .subscribe(this.collectionChanged);
   }
 
   async activate() {
-    this.players = await this.transactions.getAllPlayers();
+    var res = await this.playersProvider.getPlayers();
+    this._players = res;
   }
 
   edit(player) {
     this.router.navigate("edit-player/" + player);
   }
 
-  generateRandomAvatar() {
-    let num = Math.floor(Math.random() * 5 + 1);
+  async remove(player) {
+    let res = await this.playersProvider.removePlayer(player);
+    if(!res)
+      console.log("modal here " + res);
+  }
+
+  generatePlayerAvatar(playerId) {
+    let num = (playerId % 5) + 1;
     return "media/small/" + num + ".jpg";
+  }
+
+  collectionChanged(splices) {
+    console.log("player removed" + splices);
+  }
+
+  deactivate() {
+    this._subscription.dispose();
   }
 }

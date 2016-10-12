@@ -1,8 +1,9 @@
 <template>
+  <require from="./mapToIterableValueConverter"></require>
   <div class="ui cards">
-    <div repeat.for="player of players" class="card">
+    <div repeat.for="player of _players | mapToIterable" class="card">
       <div class="content">
-        <img class="right floated mini ui image" src=${generateRandomAvatar()}>
+        <img class="right floated mini ui image" src.bind=$parent.generatePlayerAvatar(player._id)>
         <div class="header">
           ${player.name}
         </div>
@@ -15,8 +16,8 @@
       </div>
       <div class="extra content">
         <div class="ui two buttons">
-          <div class="ui basic green button">Fight</div>
-          <div class="ui basic red button">Remove</div>
+          <div class="ui basic green button">Explore</div>
+          <div class="ui basic red button" click.delegate=$parent.remove(player._id)>Remove</div>
         </div>
       </div>
       <div class="ui bottom attached button" click.delegate=$parent.edit(player._id)>

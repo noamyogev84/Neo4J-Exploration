@@ -40,4 +40,16 @@ export class TransactionLogic {
     return res;
   }
 
+  async updatePlayer(player) {
+    console.log("updatePlayer executed");
+    let res = await this.executeCommandOnServer("updatePlayer",player);
+    return res;
+  }
+
+  async removePlayer(player) {
+    console.log("removePlayer executed");
+    let res = await this.executeCommandOnServer("removePlayer",player);
+    return res;
+  }
+
 }

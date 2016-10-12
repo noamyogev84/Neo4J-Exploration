@@ -1,23 +1,28 @@
 import {inject} from 'aurelia-framework';
 import {TransactionLogic} from '../../modules/transactionLogic';
+import {Players} from '../../models/players'
+import {Router} from 'aurelia-router';
 
-@inject(TransactionLogic)
+@inject(TransactionLogic,Players,Router)
 export class EditPlayer {
 
-  constructor(transactionLogic) {
+  constructor(transactionLogic,players,router) {
     this.transactions = transactionLogic;
+    this.players = players;
+    this.router = router;
   }
 
   async activate(params) {
-    await this.getPlayerById(params.id)
+    var res = await this.players.getPlayers();
+    this.currentPlayer = res[params.id];
+    console.log(this.currentPlayer);
   }
 
-  async savePlayer() {
-    var player = {name: this.name,age: parseInt(this.age),points: parseInt(this.points)};
-    let res = await this.transactions.saveNewPlayer(player);
+  async save() {
+    console.log("save :" + JSON.stringify(this.currentPlayer));
+    let res = await this.transactions.updatePlayer(this.currentPlayer);
+    if(!res){};//TODO : validate return errors
+    this.router.navigateBack();
   }
 
-  async getPlayerById(playerId) {
-    this.player = await this.transactions.getPlayer(playerId);
-  }
 }
