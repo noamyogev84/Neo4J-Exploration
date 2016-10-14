@@ -1,0 +1,63 @@
+<template>
+  <require from="../../converters/mapToIterableValueConverter"></require>
+  <div class="ui raised card fluid">
+    <div class="content">
+      <div class="header">New Player Details</div>
+      <div class="ui equal width form" submit.delegate="save()">
+        <div class="fields">
+          <div class="field">
+            <label>Username</label>
+            <input type="text" placeholder="Username">
+          </div>
+          <div class="field">
+            <label>Password</label>
+            <input type="password">
+          </div>
+        </div>
+        <div class="fields">
+          <div class="field">
+            <label>Name</label>
+            <input type="text" placeholder="Name" value.bind="newPlayer.name">
+          </div>
+          <div class="field">
+            <label>Age</label>
+            <input type="text" placeholder="Age" value.bind="newPlayer.age">
+          </div>
+          <div class="field">
+            <label>Initial Points</label>
+            <input type="text" placeholder="Initial Points" value.bind="newPlayer.points">
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="extra content">
+      <h3 class="header">Combat friends suggestions</h3>
+      <div class="ui ten cards">
+          <div repeat.for="player of _players | mapToIterable" class="ui raised card" tabindex="0" >
+            <div class="blurring dimmable image">
+              <div class="ui dimmer">
+                <div class="content">
+                  <div class="center">
+                    <div class="ui inverted button">Add Friend</div>
+                  </div>
+                </div>
+              </div>
+              <img src.bind=$parent.generatePlayerAvatar(player._id)>
+            </div>
+          </div>
+        </div>
+      </div>
+    <div class="extra content">
+    <button class="ui right floated primary button" click.delegate="save()">
+      Save
+    </button>
+    <button class="ui right floated button" click.delegate="cancel()">
+      Discard
+    </button>
+      </div>
+    </div>
+            </div>
+          </div>
+      </div>
+  </div>
+</template>

@@ -45,6 +45,7 @@ app.post('/commands', jsonParser, function (req, res) {
   //call db with command
   dbAdapter.executeDBCommand(command, params, function (response) {
     res.setHeader('Content-Type', 'application/json');
+    console.log(JSON.stringify(response));
     res.send(JSON.stringify(response));
   })
 });

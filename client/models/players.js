@@ -8,6 +8,7 @@ export class Players {
     this._transactions = transactionLogic;
     this._isInitialized = false;
     this._players = [];
+    this.playersCount = 0;
   }
 
   async getPlayers() {
@@ -34,6 +35,7 @@ export class Players {
   async initialize() {
     await this.buildPlayersDictionary();
     this._isInitialized = true;
+    console.log("players : " + this.playersCount);
   }
 
   async buildPlayersDictionary() {
@@ -43,5 +45,18 @@ export class Players {
     }
   }
 
+  async getPlayersCount() {
+    if(!this._isInitialized)
+      await this.initialize();
+    return Object.keys(this._players).length;
+  }
+
+  async addPlayer(player) {
+    if(!this._isInitialized)
+      await this.initialize();
+    var res = await this._transactions.saveNewPlayer(player);
+    this._players[res._id] = res;
+    return res;
+  }
 }
 

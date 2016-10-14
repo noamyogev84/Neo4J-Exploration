@@ -20,6 +20,7 @@
     "loopback-component-explorer": "^2.4.0",
     "loopback-datasource-juggler": "^2.39.0",
     "morgan": "^1.7.0",
+    "neo4j": "^2.0.0-RC2",
     "requirejs": "^2.3.2",
     "semantic-ui": "^2.2.4",
     "serve-favicon": "^2.3.0",
@@ -44,7 +45,8 @@
       "aurelia-bootstrapper": "npm:aurelia-bootstrapper@^1.0.0",
       "aurelia-fetch-client": "npm:aurelia-fetch-client@^1.0.1",
       "aurelia-framework": "npm:aurelia-framework@^1.0.5",
-      "bootstrap": "github:twbs/bootstrap@^3.3.7"
+      "bootstrap": "github:twbs/bootstrap@^3.3.7",
+      "semantic-ui": "github:Semantic-Org/Semantic-UI@^2.2.4"
     },
     "devDependencies": {
       "babel": "npm:babel-core@^5.8.24",

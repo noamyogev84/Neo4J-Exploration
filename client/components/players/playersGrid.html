@@ -1,7 +1,7 @@
 <template>
-  <require from="./mapToIterableValueConverter"></require>
-  <div class="ui cards">
-    <div repeat.for="player of _players | mapToIterable" class="card">
+  <require from="../../converters/mapToIterableValueConverter"></require>
+  <div class="ui four cards">
+    <div repeat.for="player of _players | mapToIterable" class="ui raised card">
       <div class="content">
         <img class="right floated mini ui image" src.bind=$parent.generatePlayerAvatar(player._id)>
         <div class="header">

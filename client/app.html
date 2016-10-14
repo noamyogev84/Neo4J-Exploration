@@ -1,6 +1,6 @@
 
 <template>
-  <nav class="navbar navbar-inverse">
+  <!--<nav class="navbar navbar-inverse">
     <div class="container-fluid">
       <div class="navbar-header">
         <a href="#" class="navbar-brand">BOO-YA!</a>
@@ -11,6 +11,30 @@
         </li>
       </ul>
     </div>
-  </nav>
-    <router-view></router-view>
+  </nav>-->
+  <h2 class="ui top attached header">
+    <i class="code icon"></i>
+    <div class="content">
+      Awesome Corp.
+    </div>
+  </h2>
+  <div class="ui padded grid">
+      <div class="twelve wide column">
+        <router-view></router-view>
+      </div>
+        <div class="four wide column">
+          <div class="ui vertical menu">
+            <a repeat.for = "row of router.navigation" class="${row.isActive ? 'active teal' : ''} item" href.bind = "row.href">
+              ${row.title}
+              <div if.bind="row.settings.showCount" class="ui teal left pointing label">${_playersCount}</div>
+            </a>
+            <div class="item">
+              <div class="ui transparent icon input">
+                <input type="text" placeholder="Search mail...">
+                <i class="search icon"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
 </template>

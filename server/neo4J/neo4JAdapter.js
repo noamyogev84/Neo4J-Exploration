@@ -48,6 +48,7 @@ Neo4JAdapter.prototype.executeDBCommand = function(command,params,callback) {
       return this.getAllPlayers(callback);
     case 'addPlayer':
       var node = params;
+      console.log("server addPlayer: " + JSON.stringify(node));
       return this.addPlayer(node,callback);
     case 'getPlayer':
       var id = params;

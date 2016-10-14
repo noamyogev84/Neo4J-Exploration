@@ -187,6 +187,11 @@
   "github:twbs/bootstrap@3.3.7": {
     "jquery": "jspm:jquery"
   },
-  "npm:jquery@3.1.1": {},
-  "npm:aurelia-fetch-client@1.0.1": {}
+  "npm:aurelia-fetch-client@1.0.1": {},
+  "npm:jquery@2.2.4": {},
+  "github:systemjs/plugin-css@0.1.31": {},
+  "github:Semantic-Org/Semantic-UI@2.2.4": {
+    "jquery": "jspm:jquery@^2.1.4",
+    "css": "jspm:css"
+  }
 }
