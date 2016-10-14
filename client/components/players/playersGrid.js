@@ -35,7 +35,7 @@ export class PlayersGrid {
   }
 
   collectionChanged(splices) {
-    console.log("player removed" + splices);
+    console.log("collection changed" + JSON.stringify(splices));
   }
 
   deactivate() {

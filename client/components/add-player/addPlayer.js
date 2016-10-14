@@ -30,4 +30,8 @@ export class AddPlayer {
     this._router.navigate("players");
   }
 
+  cancel() {
+    this._router.navigateBack();
+  }
+
 }
