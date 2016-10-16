@@ -16,7 +16,7 @@ export class App {
     this.router = router;
 
     config.map([
-      { route:"home", moduleId:"components/players/playersGrid",
+      { route:"home", moduleId:"components/home/home",
         title:"Home", nav:true},
 
       { route:["", "players"], moduleId:"components/players/playersGrid",

@@ -1,35 +1,15 @@
 import {inject} from 'aurelia-framework';
-import {TransactionLogic} from '../modules/transactionLogic';
+import {GraphQuery} from '../modules/graphQuery';
+import {Commands} from '../modules/commands';
 
-@inject(TransactionLogic)
+@inject(GraphQuery)
 export class Players {
 
-  constructor(transactionLogic) {
-    this._transactions = transactionLogic;
+  constructor(graphQuery,) {
+    this._query = graphQuery;
     this._isInitialized = false;
     this._players = [];
     this.playersCount = 0;
-  }
-
-  async getPlayers() {
-    console.log("players: " + this._isInitialized);
-    if(!this._isInitialized)
-      await this.initialize();
-
-    return this._players;
-  }
-
-  async removePlayer(player) {
-    console.log("players: " + this._isInitialized);
-    if(!this._isInitialized)
-      await this.initialize();
-    var res = await this._transactions.removePlayer(player);
-    if(!res)
-      return false;
-
-    this._players.splice(player,1);
-    console.log("remove player " + player + " successful");
-    return true;
   }
 
   async initialize() {
@@ -38,8 +18,27 @@ export class Players {
     console.log("players : " + this.playersCount);
   }
 
+  async getPlayers() {
+    if(!this._isInitialized)
+      await this.initialize();
+
+    return this._players;
+  }
+
+  async removePlayer(player) {
+    if(!this._isInitialized)
+      await this.initialize();
+    var res = await this._query.executeOnGraph(Commands.removePlayer,player)
+    if(!res)
+      return false;
+
+    this._players.splice(player,1);
+    console.log("remove player " + player + " successful");
+    return true;
+  }
+
   async buildPlayersDictionary() {
-    var data = await this._transactions.getAllPlayers();
+    var data = await this._query.executeOnGraph(Commands.getAllPlayers())
     for(var i = 0; i < data.length; i++) {
       this._players[data[i]._id] = data[i];
     }
@@ -54,7 +53,7 @@ export class Players {
   async addPlayer(player) {
     if(!this._isInitialized)
       await this.initialize();
-    var res = await this._transactions.saveNewPlayer(player);
+    var res = await this._query.executeOnGraph(Commands.addPlayer(),player);
     this._players[res._id] = res;
     return res;
   }

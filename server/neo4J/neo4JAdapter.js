@@ -42,6 +42,13 @@ Neo4JAdapter.prototype.removePlayer = function(id,callback) {
   })
 }
 
+Neo4JAdapter.prototype.runGeneralCypherQuery = function(query,callback) {
+  db.cypherQuery(query,function(err, result){
+    if(err) throw err;
+    return callback(result);
+  })
+}
+
 Neo4JAdapter.prototype.executeDBCommand = function(command,params,callback) {
   switch(command) {
     case 'getAllPlayers':
@@ -61,7 +68,8 @@ Neo4JAdapter.prototype.executeDBCommand = function(command,params,callback) {
       var playerId = params;
       return this.removePlayer(playerId,callback);
     default:
-      //do nothing
+      return this.runGeneralCypherQuery(params,callback);
+      break;
   }
 }
 
