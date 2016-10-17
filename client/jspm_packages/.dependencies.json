@@ -81,7 +81,6 @@
     "aurelia-pal": "npm:aurelia-pal@^1.0.0"
   },
   "npm:aurelia-path@1.1.1": {},
-  "npm:aurelia-logging@1.0.0": {},
   "npm:aurelia-pal@1.0.0": {},
   "npm:aurelia-dependency-injection@1.0.0": {
     "aurelia-metadata": "npm:aurelia-metadata@^1.0.0",
@@ -193,5 +192,6 @@
   "github:Semantic-Org/Semantic-UI@2.2.4": {
     "jquery": "jspm:jquery@^2.1.4",
     "css": "jspm:css"
-  }
+  },
+  "npm:aurelia-logging@1.1.0": {}
 }

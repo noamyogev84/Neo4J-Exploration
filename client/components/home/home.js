@@ -1,5 +1,5 @@
-
-import {inject} from 'aurelia-framework'
+import {PLATFORM} from 'aurelia-pal';
+import {inject} from 'aurelia-framework';
 import {Graph} from '../../models/graph';
 
 @inject(Graph)
@@ -12,14 +12,15 @@ export class Home {
   }
 
   async activate() {
-    this._nodes = await this._graph.getNodes();
-    this._edges = await this._graph.getEdges();
+    if(!this._graph.isInitialized)
+      await this._graph.initialize();
+    this._nodes = this._graph.nodes.data;
+    this._edges = this._graph.edges.data;
   }
 
   async attached() {
     let scriptElement = document.createElement('script');
     scriptElement.src = this.renderGraph();
-    document.querySelector('body').appendChild(scriptElement);
   }
 
   renderGraph() {
@@ -55,7 +56,7 @@ export class Home {
         },
         font: {
           color: '#343434',
-          size: 10, // px
+          size: 14, // px
           face: 'arial',
           background: 'none',
           strokeWidth: 0, // px
@@ -67,7 +68,11 @@ export class Home {
         color: 'red',
         shadow: true,
         smooth: true,
-        arrows: 'to'
+        arrows: 'to',
+        font: {
+          size: 8,
+          align: 'horizontal'
+        }
       },
       interaction:{
         dragNodes:true,

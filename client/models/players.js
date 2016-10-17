@@ -1,60 +1,50 @@
 import {inject} from 'aurelia-framework';
+import {EventAggregator} from 'aurelia-event-aggregator';
 import {GraphQuery} from '../modules/graphQuery';
 import {Commands} from '../modules/commands';
 
-@inject(GraphQuery)
+@inject(GraphQuery,EventAggregator)
 export class Players {
 
-  constructor(graphQuery,) {
+  constructor(graphQuery,eventAggregator) {
     this._query = graphQuery;
+    this._ea = eventAggregator;
     this._isInitialized = false;
-    this._players = [];
-    this.playersCount = 0;
+    this.players = [];
   }
 
   async initialize() {
-    await this.buildPlayersDictionary();
+    if(this._isInitialized)
+      return;
+    this.players = await this._query.executeOnGraph(Commands.getAllPlayers())
     this._isInitialized = true;
-    console.log("players : " + this.playersCount);
   }
 
-  async getPlayers() {
+  async removePlayer(playerId) {
     if(!this._isInitialized)
       await this.initialize();
-
-    return this._players;
-  }
-
-  async removePlayer(player) {
-    if(!this._isInitialized)
-      await this.initialize();
-    var res = await this._query.executeOnGraph(Commands.removePlayer,player)
+    var res = await this._query.executeOnGraph(Commands.removePlayer(),playerId)
     if(!res)
       return false;
-
-    this._players.splice(player,1);
-    console.log("remove player " + player + " successful");
+    var index = this.players.map(e => e._id).indexOf(playerId);
+    this.players.splice(index,1);
+    this._ea.publish('nodeRemoved',playerId)
+    console.log("remove player " + playerId + " successful");
     return true;
-  }
-
-  async buildPlayersDictionary() {
-    var data = await this._query.executeOnGraph(Commands.getAllPlayers())
-    for(var i = 0; i < data.length; i++) {
-      this._players[data[i]._id] = data[i];
-    }
   }
 
   async getPlayersCount() {
     if(!this._isInitialized)
       await this.initialize();
-    return Object.keys(this._players).length;
+    return this.players.length;
   }
 
   async addPlayer(player) {
     if(!this._isInitialized)
       await this.initialize();
-    var res = await this._query.executeOnGraph(Commands.addPlayer(),player);
-    this._players[res._id] = res;
+    var res = await this._query.executeOnGraph(Commands.addPlayer(),player); //TODO: check result
+    this.players.push(res)
+    this._ea.publish('nodeAdded',res);
     return res;
   }
 }

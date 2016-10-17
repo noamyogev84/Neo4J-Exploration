@@ -1,25 +1,27 @@
 import {Players} from './models/players';
 import {inject, BindingEngine} from 'aurelia-framework';
 
-@inject(Players)
+@inject(Players,BindingEngine)
 export class App {
 
-  constructor(playersProvider) {
-    this._players = playersProvider;
+  constructor(playersProvider,bindingEngine) {
+    this._playersProvider = playersProvider;
+    this._bindingEngine = bindingEngine;
   }
 
   async activate() {
-    this._playersCount = await this._players.getPlayersCount();
+    await this._playersProvider.initialize();
+    this._playersCount = this._playersProvider.players.length;
   }
 
   configureRouter(config, router) {
     this.router = router;
 
     config.map([
-      { route:"home", moduleId:"components/home/home",
+      { route:["","home"], moduleId:"components/home/home",
         title:"Home", nav:true},
 
-      { route:["", "players"], moduleId:"components/players/playersGrid",
+      { route:"players", moduleId:"components/players/playersGrid",
         title:"Players", nav:true, settings: {showCount:true}},
 
       { route:"add-player", moduleId:"components/add-player/addPlayer",

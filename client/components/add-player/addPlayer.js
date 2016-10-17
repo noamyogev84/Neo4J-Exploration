@@ -14,7 +14,8 @@ export class AddPlayer {
   }
 
   async activate() {
-    this._players = await this._playersProvider.getPlayers();
+    await this._playersProvider.initialize()
+    this._players = this._playersProvider.players;
   }
 
   //TODO: find out how to do something nice with this function (duplicated from playersGrid)

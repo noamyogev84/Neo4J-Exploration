@@ -43,8 +43,10 @@
     },
     "dependencies": {
       "aurelia-bootstrapper": "npm:aurelia-bootstrapper@^1.0.0",
+      "aurelia-event-aggregator": "npm:aurelia-event-aggregator@^1.0.0",
       "aurelia-fetch-client": "npm:aurelia-fetch-client@^1.0.1",
       "aurelia-framework": "npm:aurelia-framework@^1.0.5",
+      "aurelia-pal": "npm:aurelia-pal@^1.0.0",
       "bootstrap": "github:twbs/bootstrap@^3.3.7",
       "semantic-ui": "github:Semantic-Org/Semantic-UI@^2.2.4"
     },
